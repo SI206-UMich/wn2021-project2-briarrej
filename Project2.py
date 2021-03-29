@@ -59,10 +59,13 @@ def get_search_links():
 
     """
 
-    pass
+    #pass
 
 
 def get_book_summary(book_url):
+    #creating the object
+    url = 
+    
     """
     Write a function that creates a BeautifulSoup object that extracts book
     information from a book's webpage, given the URL of the book. Parse through
@@ -159,7 +162,12 @@ class TestCases(unittest.TestCase):
         self.assertEqual(len(TestCases.search_urls), 10)
 
         # check that each URL in the TestCases.search_urls is a string
+        for url in TestCases.search_urls:
+            self.assertEqual(type(url), str)
+
         # check that each URL contains the correct url for Goodreads.com followed by /book/show/
+        for url in TestCases.search_urls:
+            self.assertIn("https://www.goodreads.com/book/show/", url)
 
 
     #def test_get_book_summary(self):
