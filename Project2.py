@@ -41,8 +41,10 @@ def get_search_links():
     list = []
     for title in bookNames:
         link = title.get('href')
-        list.append("https://www.goodreads.com/book/show/" + link)
-    print(list[0])
+        #print(link)
+        if link.startswith('/book/show/'):
+            list.append("https://www.goodreads.com" + link)
+    #print(list[0])
     return list[:10]
 
 
@@ -65,12 +67,14 @@ def get_search_links():
 def get_book_summary(book_url):
     #creating the object
     info = requests.get(book_url)
-    soup = BeautifulSoup(info.content, 'html.parser')
+    soup = BeautifulSoup(info.text, 'html.parser')
+    #print(soup)
     try:
         title = soup.find('h1', class_ = 'gr-h1 gr-h1--serif')
         title = title.text.strip()
+        #print(title)
         pages = soup.find('span', itemprop = 'numberOfPages')
-        pages = pages.text.strip()[:3]
+        pages = int(pages.text.strip()[:3])
         #print(pages)
         author = soup.find('span', itemprop = 'name')
         author = author.text.strip()
@@ -79,7 +83,7 @@ def get_book_summary(book_url):
         title = ""
         author = ""
         pages = 0
-
+    #print(title, author, pages)
     return (title, author, pages)
 
     
